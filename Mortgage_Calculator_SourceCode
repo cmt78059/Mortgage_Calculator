@@ -1,26 +1,62 @@
 from mortgage import Loan
 from decimal import *
+#from xlwt import Workbook
 
-print("Welcome to the Loan Calculator\n")
-print("1.)Enter Your Loan Information")
-print("2.)See a loan summary")
-print("3.)See a summary of nth month")
-print("4.)Enter extra payment information")
+#Setup Program Workbook
+#wb = Workbook()
+#wb.save("loanInformation.xls") #creating a workbook for loan information
+#sheet1 = wb.add_sheet('LoanInformation') 
+#sheet1.write(0, 1, 'User ID:') 
+#sheet1.write(0, 2, 'Loan') 
+#sheet1.write(0, 3, 'Principal') 
+#sheet1.write(0, 4, 'Interest')
+#sheet1.write(0,5, 'Term')
+#sheet1.write(0,6,'Loan ID')
+loan = Loan(principal=1, interest=1, term=1)
 
 #Entering Loan Information
-p=float(input("Enter the principal: $"))
-i=float(input("Enter the interest rate: "))
-t=int(input("Enter the term: "))
-loan = Loan(principal=p, interest=i, term=t)
+def loanEnterInfo():
+    p=float(input("Enter the principal: $"))#p is the principal amount, float
+    i=float(input("Enter the interest rate: "))#i is the interest rate, float
+    t=int(input("Enter the term: "))#t is the term(aka:how many years you have to pay your mortgage), int
+    loan = Loan(principal=p, interest=i, term=t)
+    menu()
 
 #Loan Summary
-loan.summarize
+def loanSummary():
+    loan.summarize
+    menu()
 
 #Loan Summary of nth Month
-n=int(input("Enter the nth month: "))
-loan.schedule(n)
-print(loan.schedule(n))
+def loanNSummary():
+    n=int(input("Enter the nth month: "))
+    loan.schedule(n)
+    print(loan.schedule(n))
+    menu()
 
+def menu(): #simple user interface for now because I don't want to design an interface 
+    print("Welcome to the Loan Calculator\n")
+    print("1.)Enter Your Loan Information")
+    print("2.)See a loan summary")
+    print("3.)See a summary of nth month")
+    print("4.)Enter extra payment information")
+    print("5.)Exit")
+    c=int(input("Enter your menu choice: "))
+    if c==1:
+        loanEnterInfo()#calling Entering Loan Information
+    elif c==2:
+        loanSummary()#calling Loan Summary
+    elif c==3:
+        loanNSummary()#calling Loan Summary of nth Month
+    elif c==5:
+        quit()
+        
+    
 
+#Main Function 
+def main():
+    print("We are in the main function") #placeholder
+    menu()
+    
+main()#calling main
 
-#Loan Summary of nth Month
